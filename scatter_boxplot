@@ -1,0 +1,45 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+def create_boxplot_scatter(df1, df2, column_labels, title):
+    """
+    This function creates a boxplot scatter to compare two columns of two dataframes.
+    The boxplot and scatter plot of each column will be displayed in separate subplots.
+    
+    Parameters:
+        df1 (pandas DataFrame): The first dataframe to be compared.
+        df2 (pandas DataFrame): The second dataframe to be compared.
+        column_labels (list of str): The labels of the columns to be compared.
+        title (str): The title of the plot.
+        
+    Returns:
+        None
+    """
+    # Create two datasets from the two dataframes for each column label
+    dataset1 = [df1[column_labels[0]], df2[column_labels[0]]]
+    dataset2 = [df1[column_labels[1]], df2[column_labels[1]]]
+
+    # Initialize a figure with two subplots
+    fig, axs = plt.subplots(1, 2, figsize=(12, 4))
+    axs = axs.flatten()
+
+    # Iterate through each dataset and create a boxplot and scatter plot for each
+    for i, data in enumerate([dataset1, dataset2]):
+        axs[i].boxplot(data, labels=['df1', 'df2'])
+        for j, d in enumerate(data):
+            x = np.random.normal(j + 1, 0.04, len(d))
+            axs[i].scatter(x, d, alpha=0.4)
+        axs[i].set_xlabel(column_labels[i], fontsize=12)
+        axs[i].set_ylabel('Values', fontsize=12)
+
+    # Add a title to the figure and adjust the layout
+    plt.suptitle(title, fontsize=16)
+    plt.tight_layout()
+    plt.show()
+
+# initialize two dataframes
+df1 = pd.DataFrame({'Mean_t1': np.random.rand(100), 'Mean_t2': np.random.rand(100)})
+df2 = pd.DataFrame({'Mean_t1': np.random.rand(100), 'Mean_t2': np.random.rand(100)})
+
+create_boxplot_scatter(df1, df2, ['Mean_t1', 'Mean_t2'], 'Comparison of two dataframes')
