@@ -22,7 +22,7 @@ class BarChart:
         # Plot bar chart with error bars (standard deviation) and T-shape capsize
         # only show the bottom half of error bar 
         #lower_error = std/2
-        # only show the to part
+        # only show the top part
         std = self.df[[col1,col2,col3]].std()
         upper_std = np.array([std[col1]/2, std[col2]/2, std[col3]/2])
         
